@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ejecutar script de Python</title>
+</head>
+<body>
+  <h1>Ejecutar script de Python</h1>
+
+  <button onclick="ejecutarScriptPython()">Ejecutar</button>
+
+  <script>
+    function ejecutarScriptPython() {
+      // Realizar una solicitud HTTP al servidor para ejecutar el script de Python
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "archivo_python.py", true);
+      xhr.send();
+    }
+  </script>
+</body>
+</html>
