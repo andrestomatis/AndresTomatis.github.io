@@ -6,13 +6,16 @@
 <body>
   <h1>Ejecutar script de Python</h1>
 
-  <button onclick="ejecutarScriptPython()">Ejecutar</button>
-
   <script>
+    // Llamar automáticamente a la función ejecutarScriptPython() al cargar la página
+    window.onload = function() {
+      ejecutarScriptPython();
+    };
+
     function ejecutarScriptPython() {
       // Realizar una solicitud HTTP al servidor para ejecutar el script de Python
       var xhr = new XMLHttpRequest();
-      xhr.open("GET", "assets/sistema/archivo_html.html/archivo_python.py", true);
+      xhr.open("GET", "archivo_python.py", true);
       xhr.send();
     }
   </script>
