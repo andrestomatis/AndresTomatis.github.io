@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ejecutar script de Python desde HTML</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <h1>Ejecutar script de Python desde HTML</h1>
+
+  <script>
+    $(document).ready(function() {
+      var fecha_actual = new Date().toISOString().split('T')[0]; // Obtener la fecha actual en formato ISO
+      var url = 'https://eightroom.voonix.net/api/?report=advertiserearnings&list&key=c2fb5fb9293a5ebe1c83ae8d53b1ca5773456fd9&start=' + fecha_actual + '&end=' + fecha_actual;
+
+      $.getJSON(url, function(data) {
+        var modified_data = modify_json(data);
+        console.log(modified_data);
+      }).fail(function() {
+        console.log('La solicitud no tuvo éxito.');
+      });
+    });
+
+    function modify_json(data) {
+      var modified_data = [];
+
+      Object.entries(data.data).forEach(([month, month_data]) => {
+        Object.entries(month_data).forEach(([advertiser_id, advertiser_data]) => {
+          Object.entries(advertiser_data).forEach(([login_id, login_data]) => {
+            Object.entries(login_data).forEach(([campaign_id, campaign_data]) => {
+              Object.entries(campaign_data).forEach(([date, date_data]) => {
+                var item = {
+                  "month": month,
+                  "advertiser_id": advertiser_id,
+                  "login_id": login_id,
+                  "campaign_id": campaign_id,
+                  "date": date,
+                  ...date_data
+                };
+
+                modified_data.push(item);
+              });
+            });
+          });
+        });
+      });
+
+      return modified_data;
+    }
+  </script>
+</body>
+</html>
