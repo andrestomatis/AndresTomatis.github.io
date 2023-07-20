@@ -5,8 +5,13 @@
 </head>
 <body>
     <h1>Ejecutar Python en el Navegador</h1>
-    <form action="/cgi-bin/archivo_python.py" method="post">
-        <input type="submit" value="Ejecutar Python">
-    </form>
+    <script>
+        fetch('archivo_python.py')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('output').innerHTML = data;
+            });
+    </script>
+    <div id="output"></div>
 </body>
 </html>
